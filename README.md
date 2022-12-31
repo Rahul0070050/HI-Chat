@@ -7,6 +7,7 @@ This is a chat app using react and firebase, It's my side project and also expec
 - [x] login 
 - [x] signUp 
 - [x] set profile
+- [ ] follow and unfollow
 - [ ] edit profile
 - [ ] change password
 - [ ] home
