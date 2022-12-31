@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-.login {
+.sign-in {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
 
-    .heading {
+    .login-app-logo {
         font-family: 'Dancing Script', cursive;
         font-size: 3.5rem;
         font-weight: 900;
-        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
 
         h1 {
             background-color: rebeccapurple;
@@ -25,39 +26,47 @@
         }
     }
 
-    form {
+    strong {
+        margin: 2rem 0;
+    }
+
+    .text-fields {
         width: 100%;
-        padding: 0 2rem;
-        h3 {
-            font-size: 2.3rem;
-            margin: 2rem 0 0rem 0;
+
+        .sign-in-text {
             text-align: center;
+            margin-top: 1rem;
         }
 
-        .text-fields {
+        form {
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            padding: 0.3rem 0;
             position: relative;
+            margin-top: 1rem;
+            width: 100%;
+            padding: 1rem 2rem;
 
-            span {
+            .email-err-text,
+            .password-err-text {
                 color: red;
                 position: absolute;
             }
-            .username-err-text {
-                top: 0.6rem;
+
+            .email-err-text {
+                top: 0.3rem;
             }
-            .password-err-text{
-                top: 4rem;
+
+            .password-err-text {
+                top: 3.6rem;
             }
+
             input {
+                width: 100%;
                 margin-top: 0.4rem;
             }
-            .create-account {
-                text-align: right;
-                margin-top: 1rem;
-            }
+        }
+        .sign-in-links {
+            margin-left: 1rem;
         }
     }
 }

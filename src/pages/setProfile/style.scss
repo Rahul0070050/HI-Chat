@@ -1,0 +1,55 @@
+.set-profile {
+    height: 100vh !important;
+
+    .set-profile-header {
+        background-color: rebeccapurple;
+        height: 25%;
+        border-radius: 0 0 50% 50%;
+        position: relative;
+
+        .MuiAvatar-root {
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+
+        }
+    }
+
+    .set-profile-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        height: 75%;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .text-field {
+                width: 19rem;
+                position: relative;
+                input {
+                    font-size: larger;
+                }
+                .username-err, .mobile-err {
+                    position: absolute;
+                    top: 0;
+                    color: red;
+                }
+                .mobile-err {
+                    top: 12.5rem;
+                }
+
+                .MuiInputBase-root {
+                    margin: 1rem 0;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
