@@ -38,7 +38,6 @@ Go to the directory
 ```bash
 
 cd reactChatApp
-****
 ```
 
 #### Create a new branch for you changes the Do some changes
