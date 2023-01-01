@@ -19,8 +19,9 @@ This is a chat app using react and firebase, It's my side project and also expec
 - [ ] report user
 - [ ] log out
 
+## images
 <div align="center">
-    <img src="./src/images/ligin.png" width="300rem" />
+    <img src="./src/images/login.png" width="300rem" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
