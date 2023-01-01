@@ -7,6 +7,16 @@
         border-radius: 0 0 50% 50%;
         position: relative;
 
+        .username{
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: xx-large;
+            letter-spacing: 2px;
+            color: white;
+        }
+
         .MuiAvatar-root {
             top: 100%;
             left: 50%;
@@ -22,7 +32,7 @@
         align-items: center;
         justify-content: center;
         margin-top: 1rem;
-        height: 75%;
+        height: 70%;
 
         form {
             display: flex;
@@ -33,8 +43,14 @@
             .text-field {
                 width: 19rem;
                 position: relative;
+                display: flex;
+                flex-direction: column;
                 input {
                     font-size: larger;
+                    -moz-appearance: textfield;
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none !important;
+                    }
                 }
                 .username-err, .mobile-err {
                     position: absolute;
