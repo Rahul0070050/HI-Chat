@@ -42,7 +42,7 @@ This is a chat app using react and firebase, It's my side project and also expec
 <br />
 
 ```bash
-git clone https://github.com/Rahul0070050/reactChatApp.git
+git clone https://github.com/Rahul0070050/HI-Chat.git
 ```
 
 Go to the directory
