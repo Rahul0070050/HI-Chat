@@ -35,7 +35,7 @@ This is a chat app using react and firebase, It's my side project and also expec
 
 <br />
 
-## **Contribute**
+## **Test App**
 
 ### If you have any idea please share with me   
 
