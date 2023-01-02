@@ -30,6 +30,9 @@ This is a chat app using react and firebase, It's my side project and also expec
 <br />
 <div align="center">
     <img src="./src/images/set%20profile.png" width="300rem" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="./src/images/chatList.png" width="300rem" />
 </div>
 
 

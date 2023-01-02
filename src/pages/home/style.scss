@@ -1,0 +1,44 @@
+.home {
+    .header {
+        background-color: rebeccapurple;
+        border-radius: 0;
+        .top {
+            background-color: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0 0.5rem 1rem;
+            
+            .logo {
+                padding-left: 1rem;
+                font-weight: 700 !important;
+                font-size: x-large;
+            }
+        }
+        .bottom {
+            background-color: transparent;
+            border-radius: 0;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 0 0.1rem;
+            a {
+                font-weight: 500;
+                letter-spacing: 0.04rem;
+                font-size: larger;
+                font-family: sans-serif;
+                text-decoration: none;
+                color: white;
+                padding-bottom: 0.4rem;
+                width: 6rem;
+                text-align: center;
+            }
+            .active {
+                border-bottom: 4px solid white;
+            }
+        }
+    }
+    .chat-list{
+        height: 85.5vh;
+    }
+}

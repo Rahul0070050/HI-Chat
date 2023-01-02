@@ -1,0 +1,17 @@
+.chat-list-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 1px 0;
+    padding: 0.6rem 0.5rem 0.6rem 1rem;
+    img {
+        width: 2.5rem;
+        margin-right: 1.1rem;
+        border-radius: 50px;
+    }
+    .text {
+        p {
+            line-height: 18px !important;
+        }
+    }
+}
