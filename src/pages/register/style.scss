@@ -5,7 +5,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh !important;
+    overflow-y: hidden !important;
 
     .login-app-logo {
         font-family: 'Dancing Script', cursive;
@@ -15,6 +16,7 @@
         justify-content: center;
 
         h1 {
+            margin-bottom: 1.5rem;
             background-color: rebeccapurple;
             width: 10rem;
             height: 10rem;
@@ -24,10 +26,6 @@
             border-radius: 50%;
             color: white;
         }
-    }
-
-    strong {
-        margin: 2rem 0;
     }
 
     .text-fields {
@@ -66,7 +64,24 @@
             }
         }
         .sign-in-links {
-            margin-left: 1rem;
+            text-align: right;
         }
+    }
+    .error-box {
+        width: 20rem;
+        position: absolute;
+        bottom: 0;
+        overflow-y: hidden;
+    }
+    .error {
+        transition: all ease-in-out 0.5s;
+        padding: 1rem 3rem;
+        text-align: center;
+        background-color: rgba(255, 0, 0, 0.27);
+        border: 1px solid red;
+        margin-bottom: -3.5rem;
+    }
+    .show-err {
+        margin-bottom: -0.3rem;
     }
 }

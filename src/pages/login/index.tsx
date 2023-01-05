@@ -1,13 +1,15 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Button, FormControl, IconButton, Input, InputAdornment, TextField } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { Button, Card, FormControl, IconButton, Input, InputAdornment, TextField } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom';
 import { Email, Password, Visibility, VisibilityOff } from '@mui/icons-material';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, loginUser, userSignIn } from '../../firebase/config';
+
+
 
 import './style.scss'
-import { auth ,loginUser} from '../../firebase/config';
 
 function Login() {
+  const location = useNavigate()
 
   interface user {
     email: String,
@@ -16,6 +18,9 @@ function Login() {
   const [UserData, setUserData] = useState<user>({ email: '', password: '' })
   const [UserDataErr, setUserDataErr] = useState({ email: false, password: false })
   const [showPassword, setshowPassword] = useState(false)
+  const [authErr, setAuthErr] = useState('')
+
+
   function handleOnchange(e: ChangeEvent<HTMLInputElement>) {
 
     setUserData(prev => {
@@ -26,7 +31,7 @@ function Login() {
     })
   }
   function handleSubmit() {
-
+    
     if (UserData.email === '' || UserData.password === '') {
       setUserDataErr(prev => {
         return {
@@ -39,12 +44,15 @@ function Login() {
     }
 
     setUserDataErr({ email: false, password: false })
-
-
-    loginUser(UserData.email,UserData.password).then(user => {
-
-      console.log(user);
+    
+    
+    loginUser(UserData.email, UserData.password).then(user => {
       
+      console.log(user);
+      location('/set-profile')
+      
+    }).catch(error => {
+      setAuthErr(error)
     })
 
   }
@@ -54,14 +62,14 @@ function Login() {
         <h1>Hi</h1>
       </div>
       <form>
-        <h3>Login</h3>
+        <h3>Sign In</h3>
         <div className="text-fields">
           &nbsp;
           <span className='username-err-text'>{UserDataErr.email ? 'invalid email' : ''}</span>
           <TextField
             onChange={handleOnchange}
             name="email"
-            placeholder='username'
+            placeholder='email'
             variant="standard"
             type='email'
             sx={{ mb: '1rem' }} />
@@ -86,10 +94,13 @@ function Login() {
           <FormControl sx={{ pt: '2rem' }}>
             <Link to={'/'}>Forgot password</Link>
             <Button onClick={handleSubmit} variant="contained" sx={{ p: '0.7rem', my: '1rem', backgroundColor: 'rebeccapurple', fontSize: '1rem', fontWeight: '600' }}>Login</Button>
-            <Link className="create-account" to={'/signin'}>I don't have an Account</Link>
+            <Link className="create-account" to={'/register'}>I don't have an Account</Link>
           </FormControl>
         </div>
       </form>
+      <div className="error-box">
+        <Card className={`error ${authErr && 'show-err'}`}>{authErr}</Card>
+      </div>
     </div>
   )
 }

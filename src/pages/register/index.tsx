@@ -1,19 +1,19 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, FormControl, IconButton, Input, InputAdornment, TextField } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom';
+import { Button, Card, FormControl, IconButton, Input, InputAdornment, TextField } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { auth, userSignIn } from '../../firebase/config';
 
 import './style.scss'
 
-function SignIn() {
+function Register() {
   const location = useNavigate()
-
 
   const [UserData, setUserData] = useState<user>({ email: '', password: '' })
   const [UserDataErr, setUserDataErr] = useState({ email: false, password: false })
   const [showPassword, setshowPassword] = useState(false)
+  const [authErr, setAuthErr] = useState('')
 
   interface user {
     email: String,
@@ -33,7 +33,7 @@ function SignIn() {
   }
 
   function handleSubmit() {
-
+    
     if (UserData.email === '' || UserData.password === '') {
       setUserDataErr(prev => {
         return {
@@ -45,8 +45,10 @@ function SignIn() {
       return
     }
 
-    userSignIn(UserData.email,UserData.password).then(user => {
+    userSignIn(UserData.email, UserData.password).then(user => {
       location('/set-profile')
+    }).catch(err => {
+      setAuthErr(err)
     })
   }
 
@@ -56,7 +58,7 @@ function SignIn() {
         <h1>Hi</h1>
       </div>
       <div className="text-fields">
-        <h1 className='sign-in-text'><strong>Sign In</strong></h1>
+        <h1 className='sign-in-text'><strong>Sign Up</strong></h1>
         <form>
           <div className='email-err-text'>{UserDataErr.email ? 'invalid email' : ''}</div>
           <TextField
@@ -90,8 +92,11 @@ function SignIn() {
           </div>
         </FormControl>
       </div>
+      <div className="error-box">
+        <Card className={`error ${authErr && 'show-err'}`}>{authErr}</Card>
+      </div>
     </div>
   )
 }
 
-export default SignIn
+export default Register

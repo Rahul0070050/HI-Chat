@@ -1,7 +1,8 @@
 import React from 'react'
 import { Paper, Typography } from '@mui/material'
-import { MoreVertRounded, SearchRounded } from '@mui/icons-material';
+import { MoreVertRounded, QrCode2 } from '@mui/icons-material';
 import { NavLink, Outlet } from 'react-router-dom';
+
 import './style.scss'
 
 function Home() {
@@ -11,7 +12,7 @@ function Home() {
                 <div className="top">
                     <Typography className='logo'>HI</Typography>
                     <div className="options">
-                        <SearchRounded sx={{ mr: '0.8rem' }} />
+                        <QrCode2 sx={{ mr: '0.8rem' }} />
                         <MoreVertRounded sx={{ mr: '1rem' }} />
                     </div>
                 </div>

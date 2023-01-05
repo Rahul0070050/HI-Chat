@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, getDoc, setDoc, doc, Firestore } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, User } from "firebase/auth";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { type } from "os";
 
@@ -27,7 +27,7 @@ const db = getFirestore(app);
 const storage = getStorage(app, 'profile-images');
 
 
-type User = {
+type UserData = {
   uid: String,
   email: String,
 }
@@ -52,8 +52,10 @@ export function userSignIn(email: String, password: String) {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode + " " + errorMessage);
+        // const errorMessage = error.message;
+        console.log(errorCode);
+        reject(errorCode)
+        // console.log(errorMessage);
         // ..
       });
   })
@@ -71,15 +73,17 @@ export function loginUser(email: String, password: String) {
       // ...
     })
     .catch((error) => {
-      console.log(error);
       const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorMessage = error.message;
+      console.log(errorCode);
+
+      reject(errorCode)
     });
   })
 }
 
 // upload user profile
-export function uploadProfile(user:any,userInfo:userInfo) {
+export function uploadProfile(userInfo:userInfo) {
   const storageRef = ref(storage, 'profile-images/rivers.jpg');
 
   const uploadTask = uploadBytesResumable(storageRef, userInfo.file);
@@ -111,12 +115,13 @@ export function uploadProfile(user:any,userInfo:userInfo) {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        const currentUser:User = auth.currentUser as User
         console.log('File available at', downloadURL);
-        updateProfile(user, {
+        updateProfile(currentUser, {
           displayName: null,
           photoURL: null,
         })
-        setDoc(doc(db,'users',user.uid), {
+        setDoc(doc(db,'users',currentUser?.uid), {
           displayName: userInfo.username,
           photoURL: downloadURL,
           mobile: userInfo.mobile,
