@@ -1,12 +1,34 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
-import { Avatar, Button, FormControl, InputAdornment, TextField, Typography } from '@mui/material'
+import React, { ChangeEvent, useLayoutEffect, useState } from 'react'
+import { Avatar, Button, Card, FormControl, InputAdornment, TextField, Typography } from '@mui/material'
 
 import './style.scss'
+import { auth } from '../../firebase/config'
+import { useNavigate } from 'react-router-dom'
 
 function SetProfile() {
-    const [userData, setuserData] = useState({ username: '', about: '', mobile: '' })
+    const location = useNavigate()
+    const [userData, setuserData] = useState({ username: '', about: '', mobile: '', file: File, email: '' })
     const [userDataErr, setuserDataErr] = useState({ username: false, mobile: false })
-    const profileRef = useRef()
+    let profileInputRef: any;
+
+    useLayoutEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                const email = auth.currentUser?.email || ''
+                setuserData(prev => {
+                    return {
+                        ...prev,
+                        email
+                    }
+                })
+                console.log('c u', auth.currentUser);
+                console.log('u', user);
+            } else {
+                location('/')
+            }
+        })
+    }, [])
+
     function handleSubmit() {
         if (userData.username === '' || userData.mobile === '') {
             setuserDataErr(prev => {
@@ -31,14 +53,20 @@ function SetProfile() {
         })
     }
     function changeProfile() {
-        console.log();
-        
+        profileInputRef.click()
+    }
+    function handleProfileOnchange(file: React.FormEvent<HTMLInputElement>) {
+        const image = file.currentTarget.files
+        if (image?.length == 1) {
+            console.log(image[0])
+        }
+
     }
     return (
         <div className='set-profile'>
             <div className="set-profile-header">
                 <Typography className='username'>Hi, {userData.username ? userData.username : ''}</Typography>
-                <input type="file" name="" id="" />
+                <input type="file" accept='image/*' onChange={(e) => handleProfileOnchange(e)} ref={input => profileInputRef = input} name="" id="" />
                 <Avatar
                     onClick={changeProfile}
                     alt="Remy Sharp"
@@ -46,12 +74,19 @@ function SetProfile() {
                     sx={{ width: 120, height: 120 }}
                 />
             </div>
+            <div className="crop-image-background">
+                <Card className="crop-image">
+                    <Card>
+
+                    </Card>
+                </Card>
+            </div>
             <div className="set-profile-body">
                 <form>
                     <div className="text-field">
                         <div className='username-err'>{userDataErr.username ? 'invalid username' : ''}</div>
                         <TextField name='username' onChange={handleOnChange} variant='standard' placeholder="Username" />
-                        <TextField variant='standard' placeholder="Email" disabled />
+                        <TextField variant='standard' value={userData.email} placeholder="Email" disabled />
                         <TextField name='about' onChange={handleOnChange} variant='standard' defaultValue="I'm Using HI" placeholder="About" />
                         <div className='mobile-err'>{userDataErr.mobile ? 'invalid Number' : ''}</div>
                         <TextField

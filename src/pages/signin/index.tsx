@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from 'react'
 import { Button, Card, FormControl, IconButton, Input, InputAdornment, TextField } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom';
-import { Email, Password, Visibility, VisibilityOff } from '@mui/icons-material';
-import { auth, loginUser, userSignIn } from '../../firebase/config';
+import { Email, Visibility, VisibilityOff } from '@mui/icons-material';
+import { userSignIn } from '../../firebase/config';
 
 
 
@@ -46,7 +46,7 @@ function Login() {
     setUserDataErr({ email: false, password: false })
     
     
-    loginUser(UserData.email, UserData.password).then(user => {
+    userSignIn(UserData.email, UserData.password).then(user => {
       
       console.log(user);
       location('/set-profile')
@@ -94,7 +94,7 @@ function Login() {
           <FormControl sx={{ pt: '2rem' }}>
             <Link to={'/'}>Forgot password</Link>
             <Button onClick={handleSubmit} variant="contained" sx={{ p: '0.7rem', my: '1rem', backgroundColor: 'rebeccapurple', fontSize: '1rem', fontWeight: '600' }}>Login</Button>
-            <Link className="create-account" to={'/register'}>I don't have an Account</Link>
+            <Link className="create-account" to={'/signup'}>I don't have an Account</Link>
           </FormControl>
         </div>
       </form>

@@ -3,11 +3,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Button, Card, FormControl, IconButton, Input, InputAdornment, TextField } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { auth, userSignIn } from '../../firebase/config';
+import { userSignUp } from '../../firebase/config';
 
 import './style.scss'
 
-function Register() {
+function SingUp() {
   const location = useNavigate()
 
   const [UserData, setUserData] = useState<user>({ email: '', password: '' })
@@ -45,7 +45,7 @@ function Register() {
       return
     }
 
-    userSignIn(UserData.email, UserData.password).then(user => {
+    userSignUp(UserData.email, UserData.password).then(user => {
       location('/set-profile')
     }).catch(err => {
       setAuthErr(err)
@@ -88,7 +88,7 @@ function Register() {
         <FormControl sx={{ px: '2rem', display: 'flex' }}>
           <Button onClick={handleSubmit} type='button' variant="contained" sx={{ p: '0.7rem', my: '1rem', backgroundColor: 'rebeccapurple', fontSize: '1rem', fontWeight: '600' }}>Login</Button>
           <div className="sign-in-links">
-            <Link to='/login' >I Have an Account</Link>
+            <Link to='/signin' >I Have an Account</Link>
           </div>
         </FormControl>
       </div>
@@ -99,4 +99,4 @@ function Register() {
   )
 }
 
-export default Register
+export default SingUp

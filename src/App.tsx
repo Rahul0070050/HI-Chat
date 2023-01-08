@@ -3,10 +3,11 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom'
 
 import './App.scss';
 import Home from './pages/home';
-import Login from './pages/login';
+import SignIn from './pages/signin';
+import SignUp from './pages/signup';
 import SetProfile from './pages/setProfile';
-import Register from './pages/register';
 import Chat from './pages/chat'
+import Status from './pages/status';
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}>
           <Route index element={<Chat />} />
+          <Route path='/status' element={<Status />} />
         </Route>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
+        <Route path='/signin' element={<SignIn />}/>
+        <Route path='/signup' element={<SignUp />}/>
         <Route path='/set-profile' element={<SetProfile/>}/>
       </Routes>
     </BrowserRouter>

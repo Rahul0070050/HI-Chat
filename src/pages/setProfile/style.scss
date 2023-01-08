@@ -7,11 +7,11 @@
         border-radius: 0 0 50% 50%;
         position: relative;
 
-        .username{
+        .username {
             position: absolute;
             top: 45%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             font-size: xx-large;
             letter-spacing: 2px;
             color: white;
@@ -22,7 +22,27 @@
             left: 50%;
             transform: translate(-50%, -50%);
             position: absolute;
+        }
 
+        input {
+            display: none;
+        }
+    }
+
+    .crop-image-background {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        backdrop-filter: blur(4px);
+        z-index: 2;
+        .crop-image {
+            position: absolute;
+            opacity: 1001;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding: 1rem;
         }
     }
 
@@ -45,18 +65,23 @@
                 position: relative;
                 display: flex;
                 flex-direction: column;
+
                 input {
                     font-size: larger;
                     -moz-appearance: textfield;
+
                     &::-webkit-inner-spin-button {
                         -webkit-appearance: none !important;
                     }
                 }
-                .username-err, .mobile-err {
+
+                .username-err,
+                .mobile-err {
                     position: absolute;
                     top: 0;
                     color: red;
                 }
+
                 .mobile-err {
                     top: 12.5rem;
                 }

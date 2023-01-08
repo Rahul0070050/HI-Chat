@@ -4,7 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, User } from "firebase/auth";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { type } from "os";
 
 
 const firebaseConfig = {
@@ -40,7 +39,7 @@ type userInfo = {
 }
 
 // sign-in user
-export function userSignIn(email: String, password: String) {
+export function userSignUp(email: String, password: String) {
   return new Promise((resolve, reject) => {
     createUserWithEmailAndPassword(auth, `${email}`, `${password}`)
       .then((userCredential) => {
@@ -61,7 +60,7 @@ export function userSignIn(email: String, password: String) {
   })
 }
 
-export function loginUser(email: String, password: String) {
+export function userSignIn(email: String, password: String) {
   return new Promise((resolve, reject) => { 
     
     signInWithEmailAndPassword(auth, `${email}`, `${password}`)
