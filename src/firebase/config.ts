@@ -23,20 +23,22 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const storage = getStorage(app, 'profile-images');
+const storage = getStorage(app);
 
 
 type UserData = {
-  uid: String,
-  email: String,
+  uid: string,
+  email: string,
 }
 
 type userInfo = {
-  username: String,
-  mobile: Number,
-  about: String,
-  file: File
+  username: string,
+  mobile: string,
+  about: string,
+  file: Blob
 }
+
+
 
 // sign-in user
 export function userSignUp(email: String, password: String) {
@@ -61,36 +63,35 @@ export function userSignUp(email: String, password: String) {
 }
 
 export function userSignIn(email: String, password: String) {
-  return new Promise((resolve, reject) => { 
-    
-    signInWithEmailAndPassword(auth, `${email}`, `${password}`)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user);
-      resolve(user)
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      // const errorMessage = error.message;
-      console.log(errorCode);
+  return new Promise((resolve, reject) => {
 
-      reject(errorCode)
-    });
+    signInWithEmailAndPassword(auth, `${email}`, `${password}`)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+        resolve(user)
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        // const errorMessage = error.message;
+        console.log(errorCode);
+
+        reject(errorCode)
+      });
   })
 }
 
+
 // upload user profile
-export function uploadProfile(userInfo:userInfo) {
-  const storageRef = ref(storage, 'profile-images/rivers.jpg');
+export function uploadProfile(userInfo: userInfo) {
+  console.log(userInfo.file);
+
+  const storageRef = ref(storage, `profile/${auth.currentUser?.uid}.jpg`);
 
   const uploadTask = uploadBytesResumable(storageRef, userInfo.file);
 
-  // Register three observers:
-  // 1. 'state_changed' observer, called any time the state changes
-  // 2. Error observer, called on failure
-  // 3. Completion observer, called on successful completion
   uploadTask.on('state_changed',
     (snapshot) => {
       // Observe state change events such as progress, pause, and resume
@@ -107,6 +108,7 @@ export function uploadProfile(userInfo:userInfo) {
       }
     },
     (error) => {
+      console.log(error);
       console.log(error.message);
 
     },
@@ -114,24 +116,29 @@ export function uploadProfile(userInfo:userInfo) {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        const currentUser:User = auth.currentUser as User
+        const currentUser: User = auth.currentUser as User
         console.log('File available at', downloadURL);
         updateProfile(currentUser, {
-          displayName: null,
-          photoURL: null,
+          displayName: userInfo.username,
+          photoURL: downloadURL,
+        }).then(res => {
+          console.log('profile updated');
         })
-        setDoc(doc(db,'users',currentUser?.uid), {
+        setDoc(doc(db, 'users', currentUser?.uid), {
           displayName: userInfo.username,
           photoURL: downloadURL,
           mobile: userInfo.mobile,
-          about: userInfo.about
+          about: userInfo.about,
         }).then(res => {
-          console.log(res);
-          
+          console.log('user added');
+
         }).catch(err => {
           console.log(err);
-          
+
         })
+      }).catch(err => {
+        console.log(err);
+
       });
     }
   );

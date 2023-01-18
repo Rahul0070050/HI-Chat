@@ -25,8 +25,8 @@ function ImageCrop({ imgFile, setshowCropper, setImage }: prop) {
         setImageUri(URL.createObjectURL(imgFile))
         if (imageRef) {
             imageRef.addEventListener('load', (e) => {
-                console.log(imageRef.naturalHeight);
-                console.log(imgFile);
+                // console.log(imageRef.naturalHeight);
+                // console.log(imgFile);
             })
         }
     }, [imageRef])
@@ -37,17 +37,8 @@ function ImageCrop({ imgFile, setshowCropper, setImage }: prop) {
         setImageRef(null)
     }
 
-    function cropImage() {
+    async function cropImage() {
         if (imageRef) {
-            // console.log(crop);
-
-            // console.log(imageRef.naturalHeight);
-
-            // const canvas = document.createElement('canvas')
-            // const ctx = canvas.getContext('2d')
-            // ctx?.drawImage(imageRef,crop.x,crop.y,crop.height,crop.width,0,0,100,100)
-            // ctx?.drawImage(imageRef,0,0,272,272)
-
             const canvas = document.createElement("canvas");
             const scaleX = imageRef.naturalWidth / imageRef.width;
             const scaleY = imageRef.naturalHeight / imageRef.height;
@@ -67,20 +58,11 @@ function ImageCrop({ imgFile, setshowCropper, setImage }: prop) {
                 crop.height
             );
 
-            canvas.toBlob(blob => {
-                if (!blob) {
-                    //reject(new Error('Canvas is empty'));
-                    console.error("Canvas is empty");
-                    return;
-                }
-                // blob.name = 'fileName';
-                // window.URL.revokeObjectURL(this.fileUrl);
-                // this.fileUrl = window.URL.createObjectURL(blob);
-                console.log(blob);
-
+            canvas.toBlob((blob) => {
                 setImage(blob);
                 handleShowCroper()
-            }, "image/jpeg");
+            },"image/jpeg");
+            
         }
     }
 
