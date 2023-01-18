@@ -34,7 +34,11 @@ This is a chat app using react and firebase, It's my side project and also expec
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <img src="./src/images/chatList.png" width="300rem" />
 </div>
-
+<br />
+<br />
+<div align="center">
+    <img src="./src/images/profile-image-crop.png" width="300rem" />
+</div>
 
 <br />
 
