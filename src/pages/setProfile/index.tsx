@@ -12,7 +12,7 @@ function SetProfile() {
     const [userData, setuserData] = useState({ username: '', about: `I'm Using HI`, mobile: '', email: '', uid: '' })
     const [userDataErr, setuserDataErr] = useState({ username: false, mobile: false })
     const [image, setImage] = useState<any>()
-    const [imageURI, setImageURI] = useState<Blob | null>(null)
+    const [imageURI, setImageURI] = useState<Blob | undefined>(undefined)
     const [profileImage, setProfileImage] = useState<any>('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIsAAACLCAMAAABmx5rNAAAAMFBMVEXk5ueutLfo6uunrrGrsbTJzc/BxsjT1ti5vsHe4OGxt7rP0tTa3d7h4+S8wcTX2ttehllwAAADC0lEQVR4nO2a23LrIAxFQTYXgy///7cHbDdN2zhIxJI9c1gvTd/WbAQGhFKNRqPRaDQajUaj0Wj8JwCAmrYfV4uoxdjZez/PNo4X6sAQfdf3vV5JP7rZTZfowGDDrvGg74NR4jbJpPttsuloI60S9UuTzWYUjcYemqw2Rk5m+FMov2VmKZXxvYikDEIlyXiJYZowKkLJeJyLQAHD+xn0Q8YxqzisSYbZhaLSW85RAoMeoVVmYXQZAkUlzSW+YIixJJmRzUXRTHLFcJmAI8aSZLhc1Ex3iVwVQ1bRmqt6l47uEiYWFcLy/wTPEgPYr+IzfWRxmWgL3e7C8x0gLro7PHsq1H7uLywuS5VKx+JCX3X5XJYbudwqlxoVJpc7zaM7rS93Wnfv9D0i73ZXmI4C4332L/Stt+bb1xVuo17Btt+91TmAdJpeVdjOR/c6NxKXO87zNDkYxliSDCUY3vsX4oaK+cKOMErc93X5C4mUkbiIx97v8i0tTwwoFZF7bwWIVUauOVHuk4gM0I59u5Xhu416BbjjaPowyLYcYTrqNzLtcEs2L/qw3lzTpIbJ+bUvvWmkP3aR7wg/bEAtcW3cz9Zc2rffbJ64TCJrTGOKxdiMMdEtg7xRklii9brr8nOGb9L/OtjoBqFHH6AmZ0PQ/dH6kos4zJHdB2A0/ljj5+y2js8mi6A8HjppjrO8QQGI/vg9xXE657/6gMmUvs2HOvbUZx/JhBzJk40+0QZiZSZPNufUDbgPMnnY9Ce8XUpf489NVhv/6UCdEsqXzYeHlJNC2WV8/YYPFPZchpXRS6UM1F26v6WrGyfa8xIsVXcPUNeiKVKRTMU9IRJyMlyprDK0ZAB1fq+WoR0rq9ozeAhTG+gPOmgEtAu4iiYECfxla1XTiiiDHKW69xxEAi6WUUAFObHZC3eXwcQycBfu7oIIRqRaMojun8Ak2kA8kIxCsSBugGEWUkFUL0jFknsXhWBEFpfdpTCTQKxcEoV7erEZnfGFepEr3fIKEzpBhkIwIEhBpdFoNBqNK/gH2kAk3HwBy34AAAAASUVORK5CYII=')
     const [showCropper, setshowCropper] = useState(false)
     let profileInputRef: any;
@@ -22,14 +22,18 @@ function SetProfile() {
         auth.onAuthStateChanged((user) => {
             if (user) {
                 const email = auth.currentUser?.email || ''
+                const image = auth.currentUser?.photoURL || ''
+                const username = auth.currentUser?.displayName || ''
                 setuserData(prev => {
                     return {
                         ...prev,
-                        email
+                        email,
+                        username
                     }
                 })
-                // console.log('c u', auth.currentUser);
-                // console.log('u', user);
+                if(image) {
+                    setProfileImage(`${image}`)
+                }
             } else {
                 location('/')
             }
@@ -40,7 +44,7 @@ function SetProfile() {
     function handleSubmit() {
         try {
 
-            if (userData.username === '' || 'number' !== typeof (Number(userData.mobile)) || userData.mobile.length !== 10 || imageURI === null) {
+            if (userData.username === '' || 'number' !== typeof (Number(userData.mobile)) || userData.mobile.length !== 10) {
                 console.log(imageURI);
                 setuserDataErr(prev => {
                     return {
@@ -52,7 +56,9 @@ function SetProfile() {
                 return
             } else {
                 console.log('userdata from set profile ', userData);
-                uploadProfile({ username: userData.username, mobile: userData.mobile, about: userData.about, file: imageURI })
+                uploadProfile({ username: userData.username, mobile: userData.mobile, about: userData.about, file: imageURI }).then(() => {
+                    location('/')
+                })
             }
         } catch (error) {
             alert()
@@ -103,7 +109,7 @@ function SetProfile() {
                 <form>
                     <div className="text-field">
                         <div className='username-err'>{userDataErr.username ? 'invalid username' : ''}</div>
-                        <TextField name='username' onChange={handleOnChange} variant='standard' placeholder="Username" />
+                        <TextField name='username' value={userData.username} onChange={handleOnChange} variant='standard' placeholder="Username" />
                         <TextField variant='standard' value={userData.email} placeholder="Email" disabled />
                         <TextField name='about' onChange={handleOnChange} variant='standard' defaultValue="I'm Using HI" placeholder="About" />
                         <div className='mobile-err'>{userDataErr.mobile ? 'invalid Number' : ''}</div>

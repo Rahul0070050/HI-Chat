@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, User } from "firebase/auth";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { resolve } from "path";
 
 
 const firebaseConfig = {
@@ -35,7 +36,7 @@ type userInfo = {
   username: string,
   mobile: string,
   about: string,
-  file: Blob
+  file?: Blob | undefined
 }
 
 
@@ -86,58 +87,91 @@ export function userSignIn(email: String, password: String) {
 
 // upload user profile
 export function uploadProfile(userInfo: userInfo) {
-  console.log(userInfo.file);
+  return new Promise((resolve, reject) => {
+    console.log('update profile');
 
-  const storageRef = ref(storage, `profile/${auth.currentUser?.uid}.jpg`);
+    if (userInfo.file != undefined) {
 
-  const uploadTask = uploadBytesResumable(storageRef, userInfo.file);
+      console.log('update profile with profile image');
 
-  uploadTask.on('state_changed',
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-      switch (snapshot.state) {
-        case 'paused':
-          console.log('Upload is paused');
-          break;
-        case 'running':
-          console.log('Upload is running');
-          break;
-      }
-    },
-    (error) => {
-      console.log(error);
-      console.log(error.message);
+      const storageRef = ref(storage, `profile/${auth.currentUser?.uid}.jpg`);
 
-    },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        const currentUser: User = auth.currentUser as User
-        console.log('File available at', downloadURL);
-        updateProfile(currentUser, {
-          displayName: userInfo.username,
-          photoURL: downloadURL,
-        }).then(res => {
-          console.log('profile updated');
-        })
-        setDoc(doc(db, 'users', currentUser?.uid), {
-          displayName: userInfo.username,
-          photoURL: downloadURL,
-          mobile: userInfo.mobile,
-          about: userInfo.about,
-        }).then(res => {
-          console.log('user added');
+      const uploadTask = uploadBytesResumable(storageRef, userInfo.file);
 
-        }).catch(err => {
-          console.log(err);
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+          console.log(error.message);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            steUserData(downloadURL, userInfo).then(() => {
+              resolve(0)
+            })
+          }).catch(err => {
+            console.log(err);
 
-        })
+          });
+        }
+      );
+    } else {
+      console.log('update profile without profile image');
+      steUserData('', userInfo).then(() => {
+        resolve(0)
+      })
+    }
+  })
+}
+
+
+
+function steUserData(downloadURL: string, userInfo: userInfo) {
+  console.log(downloadURL);
+
+  const currentUser: User = auth.currentUser as User
+  console.log('File available at', downloadURL);
+
+  const updateProfileData = () => {
+    return new Promise((resolve, reject) => {
+      updateProfile(currentUser, {
+        displayName: userInfo.username,
+        photoURL: downloadURL ? downloadURL : currentUser.photoURL,
+      }).then(res => {
+        console.log('profile updated');
+        resolve(0)
+      })
+    })
+  }
+  const setUserData = () => {
+    return new Promise((resolve, reject) => {
+      setDoc(doc(db, 'users', currentUser?.uid), {
+        displayName: userInfo.username,
+        photoURL: downloadURL ? downloadURL : currentUser.photoURL,
+        mobile: userInfo.mobile,
+        about: userInfo.about,
+      }).then(res => {
+        console.log('user added');
+        resolve(0)
       }).catch(err => {
         console.log(err);
-
-      });
-    }
-  );
+      })
+    })
+  }
+  return Promise.all([updateProfileData(), setUserData()]).then(() => {
+    console.log('finished');
+  })
 }
 
 export { auth }
