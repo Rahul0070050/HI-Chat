@@ -2,26 +2,29 @@
     .header {
         background-color: rebeccapurple;
         border-radius: 0;
+
         .top {
             background-color: transparent;
             color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 0 0.5rem 1rem;
-            
+            padding: 0.75rem 0.01rem 0.75rem 0.5rem;
+
             .logo {
                 padding-left: 1rem;
                 font-weight: 700 !important;
-                font-size: x-large;
+                font-size: large;
             }
         }
+
         .bottom {
             background-color: transparent;
             border-radius: 0;
             display: flex;
             justify-content: space-evenly;
             padding: 0 0.1rem;
+
             a {
                 font-weight: 500;
                 letter-spacing: 0.04rem;
@@ -33,12 +36,15 @@
                 width: 6rem;
                 text-align: center;
             }
+
             .active {
                 border-bottom: 4px solid white;
             }
         }
     }
-    .chat-list{
-        height: 85.5vh;
+
+    .home-content {
+        height: 82.6vh;
+        box-shadow: none;
     }
 }

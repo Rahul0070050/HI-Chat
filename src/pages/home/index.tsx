@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
 import { Paper, Typography } from '@mui/material'
-import { MoreVertRounded, QrCode2 } from '@mui/icons-material';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { QuestionAnswer, Search, ViewCarousel, CameraAlt, AccountCircle } from '@mui/icons-material';
+
+import Footer from '../../components/footer';
 
 import './style.scss'
 
@@ -10,21 +13,16 @@ function Home() {
         <div className='home'>
             <Paper className='header'>
                 <div className="top">
-                    <Typography className='logo'>HI</Typography>
+                    <Typography className='logo'>Chats</Typography>
                     <div className="options">
-                        <QrCode2 sx={{ mr: '0.8rem' }} />
-                        <MoreVertRounded sx={{ mr: '1rem' }} />
+                        <Search sx={{ mr: '1rem' }} />
                     </div>
                 </div>
-                <div className="bottom">
-                    <NavLink to="/">Chat</NavLink>
-                    <NavLink to="/status">Status</NavLink>
-                    <NavLink to="/calls">Calls</NavLink>
-                </div>
             </Paper>
-            <Paper className='chat-list'>
+            <Paper className='home-content'>
                 <Outlet />
             </Paper>
+            <Footer />
         </div>
     )
 }

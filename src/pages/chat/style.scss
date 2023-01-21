@@ -1,5 +1,7 @@
 .chat-list {
     position: relative;
+    height: 82.6vh;
+    overflow: auto;
     .sent-btn {
         position: absolute;
         width: 3rem;

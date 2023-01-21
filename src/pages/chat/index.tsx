@@ -1,6 +1,7 @@
-import { ChatRounded } from '@mui/icons-material'
 import React from 'react'
+
 import ChatListItem from '../../components/chat-list'
+import { ChatRounded } from '@mui/icons-material'
 
 import './style.scss'
 
@@ -12,9 +13,12 @@ function Chat() {
       <ChatListItem />
       <ChatListItem />
       <ChatListItem />
-      <div className="sent-btn">
-        <ChatRounded />
-      </div>
+      <ChatListItem />
+      <ChatListItem />
+      <ChatListItem />
+      <ChatListItem />
+      <ChatListItem />
+      <ChatListItem />
     </div>
   )
 }
