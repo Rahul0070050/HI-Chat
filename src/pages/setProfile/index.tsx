@@ -19,7 +19,7 @@ function SetProfile() {
 
 
     useLayoutEffect(() => {
-        auth.onAuthStateChanged((user) => {
+        const unSub = auth.onAuthStateChanged((user) => {
             if (user) {
                 const email = auth.currentUser?.email || ''
                 const image = auth.currentUser?.photoURL || ''
@@ -38,6 +38,9 @@ function SetProfile() {
                 location('/')
             }
         })
+        return () => {
+            unSub()
+        }
     }, [])
 
 

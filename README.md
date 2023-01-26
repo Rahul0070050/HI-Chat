@@ -21,23 +21,23 @@ This is a chat app using react and firebase, It's my side project and also expec
 
 ## images
 <div align="center">
-    <img src="./src/images/signin.png" width="300rem" />
+    <img src="./images/signin.png" width="300rem" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="./src/images/signup.png" width="300rem" />
+    <img src="./images/signup.png" width="300rem" />
 </div>
 <br />
 <br />
 <div align="center">
-    <img src="./src/images/set%20profile.png" width="300rem" />
+    <img src="./images/set%20profile.png" width="300rem" />
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="./src/images/chatList.png" width="300rem" />
+    <img src="./images/chatList.png" width="300rem" />
 </div>
 <br />
 <br />
 <div align="center">
-    <img src="./src/images/profile-image-crop.png" width="300rem" />
+    <img src="./images/profile-image-crop.png" width="300rem" />
 </div>
 
 <br />

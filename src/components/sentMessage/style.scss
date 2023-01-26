@@ -1,0 +1,27 @@
+.sent-message {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    input {
+        width: 85%;
+        height: 100%;
+        font-size: x-large;
+        font-family: Arial, Helvetica, sans-serif;
+        outline: none;
+        border: none;
+        padding: 1rem;
+        background-color: rgb(222, 222, 222);
+        border-radius: 0 25px 25px 0;
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+    .btn {
+        height: 100%;
+        width: 15%;
+    }
+}

@@ -1,0 +1,124 @@
+.add-person-modal {
+    position: absolute;
+    background-color: white;
+    height: 100vh;
+    top: -80%;
+    z-index: -1;
+    opacity: -1;
+    width: 100%;
+    transition: all ease-in-out 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .back-arrow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 1rem;
+    }
+
+    .profile-view {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .image {
+            img {
+                border-radius: 20px;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .info {
+            width: 100%;
+
+            p {
+                font-size: x-large;
+                font-weight: 600;
+
+                &:nth-child(2) {
+                    margin: 0.4rem;
+                    color: rgb(89, 89, 89);
+                    font-size: larger;
+                }
+            }
+
+            .more-info {
+                width: 100%;
+                text-transform: capitalize;
+                display: flex;
+                justify-content: space-evenly;
+
+
+                .following-heading,
+                .followers-heading {
+                    font-size: 1.2rem !important;
+                }
+
+                .following,
+                .followers {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 0.5rem;
+
+                    p {
+                        font-size: larger;
+                    }
+                }
+            }
+
+            .profile-btns {
+                width: 100%;
+                div {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-evenly;
+                }
+            }
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .name {
+        margin-bottom: 1.4rem;
+
+        p {
+            font-size: xx-large;
+            font-weight: 600;
+        }
+    }
+
+    .qr-code {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .btns {
+        margin-top: 2rem;
+        div {
+            display: flex;
+            button {
+                margin: 0 0.5rem;
+            }
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.show-add-person-modal {
+    top: 0;
+    z-index: 1;
+    opacity: 1;
+}

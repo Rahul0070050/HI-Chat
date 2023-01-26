@@ -1,0 +1,37 @@
+.chat-navbar {
+    height: 60px;
+    background-color: rgba(102, 15, 169, 0.876) !important;
+    display: flex;
+    border-radius: 0 !important;
+    align-items: center;
+    justify-content: space-between;
+    .chat-profile {
+        display: flex;
+        align-items: center;
+        svg {
+            color: white;
+            font-size: x-large;
+        }
+        img {
+            width: 2.6rem;
+            border: 3px solid rgba(154, 90, 218, 0.439);
+            border-radius: 14px;
+            margin: 0.2rem 0.3rem;
+        }
+
+        p {
+            color: white;
+            font-size: larger;
+            font-weight: 600;
+            letter-spacing: 0.05rem;
+        }
+    }
+
+    .chat-profile-options {
+        margin-right: 1rem;
+        svg {
+            color: white;
+            font-size: x-large;
+        }
+    }
+}

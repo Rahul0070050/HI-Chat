@@ -1,0 +1,15 @@
+.chat-window {
+    position: absolute;
+    top: 0;
+    border-radius: none;
+    height: 100vh;
+    left: 100vw;
+    width: 100vw;
+    z-index: 1;
+
+    transition: all ease-in-out 0.7s !important;
+}
+
+.show-chat-window {
+    left: 0;
+}

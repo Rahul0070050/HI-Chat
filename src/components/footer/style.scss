@@ -1,17 +1,22 @@
 .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     .action-bar {
         height: 4rem;
         background-color: rebeccapurple;
         border-radius: 0;
         display: flex;
         justify-content: space-evenly;
-        // align-items: center;
         padding-top: 0.3rem;
 
         .MuiSvgIcon-root {
             font-size: 3rem;
             padding: 0.4rem 0.2rem;
             color: white;
+            transition: transform ease-in-out 0.25s;
+        }
+        .avatar-profile {
             transition: transform ease-in-out 0.25s;
         }
     }

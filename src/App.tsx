@@ -6,8 +6,15 @@ import Home from './pages/home';
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import SetProfile from './pages/setProfile';
-import Chat from './pages/chat'
-import Status from './pages/status';
+import Chat from './pages/chats'
+import PageNotFound from './pages/underConstructionPage';
+import Contacts from './pages/contacts';
+import Profile from './pages/profile';
+
+
+
+
+
 
 function App() {
   return (
@@ -15,7 +22,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}>
           <Route index element={<Chat />} />
-          <Route path='/status' element={<Status />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route path='/camera' element={<PageNotFound />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/images' element={<PageNotFound />} />
         </Route>
         <Route path='/signin' element={<SignIn />}/>
         <Route path='/signup' element={<SignUp />}/>

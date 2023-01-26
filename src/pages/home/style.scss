@@ -1,4 +1,7 @@
 .home {
+    position: relative;
+    overflow-x: hidden;
+    height: 100vh;
     .header {
         background-color: rebeccapurple;
         border-radius: 0;
@@ -42,9 +45,7 @@
             }
         }
     }
-
     .home-content {
-        height: 82.6vh;
         box-shadow: none;
     }
 }

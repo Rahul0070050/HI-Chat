@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+.page-not-found {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+        width: 90vw;
+    }
+    p {
+        color: rebeccapurple;
+        font-size: 1.1rem;
+        text-align: center;
+        // font-weight: 600;
+        font-family: 'Cinzel', serif;
+    }
+}

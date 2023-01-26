@@ -49,7 +49,7 @@ function Login() {
     userSignIn(UserData.email, UserData.password).then(user => {
       
       console.log(user);
-      location('/set-profile')
+      location('/')
       
     }).catch(error => {
       setAuthErr(error)
